@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="Store.css">
+    <title>Bazar | المتجر الفاخر للأحذية الرياضية</title>
+</head>
+<body>
+    <!-- رسالة الترحيب المتحركة -->
+    <div class="welcome-message" id="welcomeMessage">
+        <div class="welcome-content">
+            <div class="welcome-icon">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <h2 class="welcome-title">مرحباً بك في <span>Bazar</span></h2>
+            <p class="welcome-text">أفضل موقع للأحذية الرياضية في العالم</p>
+            <div class="welcome-features">
+                <div class="feature">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span>شحن مجاني</span>
+                </div>
+                <div class="feature">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>ضمان الجودة</span>
+                </div>
+                <div class="feature">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>إرجاع مجاني</span>
+                </div>
+                <div class="feature">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>دعم 24/7</span>
+                </div>
+            </div>
+            <button class="welcome-btn" onclick="closeWelcomeMessage()">ابدأ التسوق الآن ✨</button>
+        </div>
+    </div>
+
+    <!-- الأشكال العائمة المتحركة -->
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+        <div class="shape shape5"></div>
+        <div class="shape shape6"></div>
+        <div class="shape shape7"></div>
+        <div class="shape shape8"></div>
+    </div>
+
+    <!-- عداد التنازلي -->
+    <div class="countdown-banner">
+        <div class="countdown-content">
+            <i class="fa-solid fa-clock"></i>
+            <span class="countdown-text">🔥 عرض نهاية الأسبوع: خصم 50%</span>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">يوم</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">ساعة</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">دقيقة</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">ثانية</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مؤثرات صوتية -->
+    <audio id="clickSound" preload="auto">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzI0MjYAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV">
+    </audio>
+
+    <!-- تأثير المطر -->
+    <div class="rain-effect" id="rainEffect"></div>
+
+    <!-- زر تبديل الوضع -->
+    <div class="theme-switcher" id="themeSwitcher">
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
+    <!-- عدسة مكبرة -->
+    <div class="magnifier" id="magnifier">
+        <div class="magnifier-glass"></div>
+    </div>
+
+    <!-- سلة التسوق -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق <span class="cart-count-header">0</span></h3>
+            <i class="fa-solid fa-xmark close-cart"></i>
+        </div>
+        <div class="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>المجموع:</span>
+                <span class="total-amount">$0</span>
+            </div>
+            <button class="btn checkout-btn">إتمام الشراء</button>
+        </div>
+    </div>
+    <div class="cart-overlay"></div>
+
+    <!-- نافذة المشاركة -->
+    <div class="share-modal" id="shareModal">
+        <div class="share-content">
+            <div class="share-header">
+                <h3>مشاركة المنتج</h3>
+                <i class="fa-solid fa-xmark close-share"></i>
+            </div>
+            <div class="share-body">
+                <div class="share-product-preview" id="shareProductPreview">
+                    <img src="" alt="" id="shareProductImage">
+                    <div class="share-product-info">
+                        <h4 id="shareProductName"></h4>
+                        <p id="shareProductPrice"></p>
+                    </div>
+                </div>
+                <div class="share-options">
+                    <a href="#" class="share-option facebook" id="shareFacebook">
+                        <i class="fa-brands fa-facebook"></i>
+                        <span>فيسبوك</span>
+                    </a>
+                    <a href="#" class="share-option twitter" id="shareTwitter">
+                        <i class="fa-brands fa-twitter"></i>
+                        <span>تويتر</span>
+                    </a>
+                    <a href="#" class="share-option whatsapp" id="shareWhatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>واتساب</span>
+                    </a>
+                    <a href="#" class="share-option telegram" id="shareTelegram">
+                        <i class="fa-brands fa-telegram"></i>
+                        <span>تلغرام</span>
+                    </a>
+                    <button class="share-option copy-link" id="copyLink">
+                        <i class="fa-solid fa-link"></i>
+                        <span>نسخ الرابط</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="nav">
+            <a href="index.html" class="logo">Bazar</a>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active-nav">الرئيسية</a></li>
+                    <li><a href="#arrival">وصل حديثاً</a></li>
+                    <li><a href="#collection">المجموعات</a></li>
+                    <li><a href="#about">من نحن</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+                <div class="nav-icon">
+                    <span class="favorite-icon"><i class="fa-solid fa-heart"></i> <span class="favorite-count">0</span></span>
+                    <span class="cart-icon"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-count-nav">0</span></span>
+                </div>
+            </nav>
+            <i class="fa-solid fa-bars burger_icon"></i>
+        </div>
+    </header>
+
+    <!-- القسم الرئيسي -->
+    <main class="container hero" id="home">
+        <div class="clr-one"></div>
+        <div class="clr-two"></div>
+        <div class="wrapper">
+            <div class="col col-text" data-aos="fade-right">
+                <h1 class="heading-one">أفضل تشكيلة <br> أحذية <span>رياضية</span></h1>
+                <p class="sub-text">نقدم لك أفضل الأحذية الرياضية بأعلى جودة وأفضل الأسعار، خبرة 70 عاماً في المجال</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-hero shop-now-btn">تسوق الآن</button>
+                    <button class="btn btn-hero-outline watch-video-btn"><i class="fa-solid fa-play"></i> شاهد الفيديو</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">50k+</span>
+                        <span class="stat-label">عميل سعيد</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">10k+</span>
+                        <span class="stat-label">منتج</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">4.9</span>
+                        <span class="stat-label">تقييم</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-img">
+                <figure data-aos="fade-left">
+                    <img src="new arrival/hero/hero.png" alt="nike-shoe" class="floating-img">
+                </figure>
+                <div class="hero-img-off" data-aos="zoom-in-up">
+                    <h3 class="heading-three">خصم يصل إلى 50%</h3>
+                    <p>على أول طلبية من الموقع</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== قسم الماركات مع صور أحذيتك ===== -->
+    <div class="brands-section">
+        <div class="wrapper">
+            <div class="section-header">
+                <h2 class="heading-two">ماركات <span>نفتخر بها</span></h2>
+                <p class="sub-heading">أشهر الماركات العالمية في مكان واحد</p>
+            </div>
+            <div class="brands-track">
+                <!-- Nike -->
+                <div class="brand-item">
+                    <img src="new arrival/ar1.png" alt="Nike Shoes">
+                    <span class="brand-name">Nike</span>
+                </div>
+                
+                <!-- Adidas -->
+                <div class="brand-item">
+                    <img src="new arrival/ar2.png" alt="Adidas Shoes">
+                    <span class="brand-name">Adidas</span>
+                </div>
+                
+                <!-- Puma -->
+                <div class="brand-item">
+                    <img src="new arrival/ar3.png" alt="Puma Shoes">
+                    <span class="brand-name">Puma</span>
+                </div>
+                
+                <!-- Reebok -->
+                <div class="brand-item">
+                    <img src="new arrival/ar4.png" alt="Reebok Shoes">
+                    <span class="brand-name">Reebok</span>
+                </div>
+                
+                <!-- New Balance -->
+                <div class="brand-item">
+                    <img src="new arrival/products/pr1.png" alt="New Balance Shoes">
+                    <span class="brand-name">New Balance</span>
+                </div>
+                
+                <!-- تكرار للماركات للحركة المستمرة -->
+                <!-- Nike -->
+                <div class="brand-item">
+                    <img src="new arrival/ar1.png" alt="Nike Shoes">
+                    <span class="brand-name">Nike</span>
+                </div>
+                
+                <!-- Adidas -->
+                <div class="brand-item">
+                    <img src="new arrival/ar2.png" alt="Adidas Shoes">
+                    <span class="brand-name">Adidas</span>
+                </div>
+                
+                <!-- Puma -->
+                <div class="brand-item">
+                    <img src="new arrival/ar3.png" alt="Puma Shoes">
+                    <span class="brand-name">Puma</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم الوصلات الحديثة -->
+    <section class="container arrival" id="arrival">
+        <div class="section-heading">
+            <div class="heading">
+                <p class="sub-heading">أحدث التشكيلات</p>
+                <h2 class="heading-two">وصل <span>حديثاً</span></h2>
+            </div>
+            <button class="btn view-all-arrival">عرض الكل <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="wrapper">
+            <div class="col product-card" data-aos="zoom-in-up" data-id="1" data-name="Nike Air Zoom Pegasus" data-price="350" data-image="new arrival/ar1.png" data-category="running">
+                <div class="product-badge">جديد</div>
+                <figure>
+                    <img src="new arrival/ar1.png" alt="nike-shoe">
+                </figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-alt"></i>
+                        <span class="rating-num">(4.9)</span>
+                    </div>
+                    <h3 class="heading-three">Nike Air Zoom</h3>
+                    <p class="sub-heading">للرجال - أحمر/أسود</p>
+                    <div class="product-price">
+                        <span class="current-price">$350</span>
+                        <span class="old-price">$450</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i> أضف للسلة</button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col product-card" data-aos="zoom-in-up" data-id="2" data-name="Nike Revolution 6" data-price="320" data-image="new arrival/ar2.png" data-category="running">
+                <div class="product-badge">مفضل</div>
+                <figure>
+                    <img src="new arrival/ar2.png" alt="nike-shoe">
+                </figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="rating-num">(5.0)</span>
+                    </div>
+                    <h3 class="heading-three">Nike Revolution 6</h3>
+                    <p class="sub-heading">للنساء - وردي</p>
+                    <div class="product-price">
+                        <span class="current-price">$320</span>
+                        <span class="old-price">$400</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i> أضف للسلة</button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col product-card" data-aos="zoom-in-up" data-id="3" data-name="Nike Air Max 270" data-price="380" data-image="new arrival/ar3.png" data-category="lifestyle">
+                <figure>
+                    <img src="new arrival/ar3.png" alt="nike-shoe">
+                </figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-alt"></i>
+                        <span class="rating-num">(4.8)</span>
+                    </div>
+                    <h3 class="heading-three">Nike Air Max 270</h3>
+                    <p class="sub-heading">للرجال - أسود</p>
+                    <div class="product-price">
+                        <span class="current-price">$380</span>
+                        <span class="old-price">$480</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i> أضف للسلة</button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col product-card" data-aos="zoom-in-up" data-id="4" data-name="Nike Free Run" data-price="340" data-image="new arrival/ar4.png" data-category="running">
+                <figure>
+                    <img src="new arrival/ar4.png" alt="nike-shoe">
+                </figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="rating-num">(4.0)</span>
+                    </div>
+                    <h3 class="heading-three">Nike Free Run</h3>
+                    <p class="sub-heading">للنساء - أزرق</p>
+                    <div class="product-price">
+                        <span class="current-price">$340</span>
+                        <span class="old-price">$390</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i> أضف للسلة</button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم العروض الخاصة -->
+    <section class="container special-offer">
+        <div class="wrapper">
+            <div class="offer-content" data-aos="zoom-in">
+                <h2>خصم خاص 30%</h2>
+                <p>على جميع أحذية Nike Air Max</p>
+                <div class="offer-timer">
+                    <div>العرض ينتهي في:</div>
+                    <div class="offer-countdown" id="offerCountdown">05 : 23 : 45</div>
+                </div>
+                <button class="btn offer-btn">تسوق الآن</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم من نحن -->
+    <section class="about container" id="about">
+        <div class="clr-one"></div>
+        <div class="clr-two"></div>
+        <div class="wrapper">
+            <div class="col-img col">
+                <div class="experience-badge" data-aos="zoom-in">
+                    <span class="years">70+</span>
+                    <span class="text">سنة خبرة</span>
+                </div>
+                <figure data-aos="fade-left">
+                    <img src="new arrival/about/about-img.png" alt="about-img" class="floating-img">
+                </figure>
+            </div>
+            <div class="col-text col" data-aos="fade-right">
+                <p class="sub-heading">من نحن</p>
+                <h2 class="heading-two">نقدم أفضل <span>الأحذية</span> بأعلى جودة</h2>
+                <p class="about-text">
+                    مع أكثر من 70 عاماً من الخبرة، نقدم لك أفضل الأحذية الرياضية التي تجمع بين الأناقة والراحة والمتانة. مجموعتنا منتقاة بعناية لتلبي جميع احتياجاتك.
+                </p>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>منتجات أصلية 100%</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>شحن سريع لجميع المدن</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>ضمان استعادة الأموال</span>
+                    </div>
+                </div>
+                <button class="btn read-more-btn">اقرأ المزيد</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المجموعات -->
+    <section class="container collection" id="collection">
+        <div class="section-heading">
+            <div class="heading">
+                <p class="sub-heading">أفضل المجموعات</p>
+                <h2 class="heading-two">تصفح حسب <span>الفئة</span></h2>
+            </div>
+            <div class="btn-section">
+                <button class="btn-col btn" data-btn="all">الكل</button>
+                <button class="btn-col" data-btn="men">رجالي</button>
+                <button class="btn-col" data-btn="women">نسائي</button>
+                <button class="btn-col" data-btn="sports">رياضي</button>
+                <button class="btn-col" data-btn="lifestyle">كاجوال</button>
+            </div>
+        </div>
+
+        <div class="grid-wrapper">
+            <div class="col- collection-item product-card" data-item="men" data-aos="zoom-in-up" data-id="5" data-name="Nike Air Max 97" data-price="420" data-image="new arrival/products/pr1.png">
+                <figure><img src="new arrival/products/pr1.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Air Max 97</h3>
+                    <p class="sub-heading">رجالي - فضي</p>
+                    <div class="product-price">
+                        <span class="current-price">$420</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col- collection-item product-card" data-item="women" data-aos="zoom-in-up" data-id="6" data-name="Nike Revolution 5" data-price="280" data-image="new arrival/products/pr2.png">
+                <figure><img src="new arrival/products/pr2.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Revolution 5</h3>
+                    <p class="sub-heading">نسائي - وردي</p>
+                    <div class="product-price">
+                        <span class="current-price">$280</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col- collection-item product-card" data-item="men" data-aos="zoom-in-up" data-id="7" data-name="Nike Air Force 1" data-price="390" data-image="new arrival/products/pr3.png">
+                <figure><img src="new arrival/products/pr3.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-alt"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Air Force 1</h3>
+                    <p class="sub-heading">رجالي - أبيض</p>
+                    <div class="product-price">
+                        <span class="current-price">$390</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col- collection-item product-card" data-item="sports" data-aos="zoom-in-up" data-id="8" data-name="Nike Zoom Fly" data-price="450" data-image="new arrival/products/pr4.png">
+                <figure><img src="new arrival/products/pr4.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Zoom Fly</h3>
+                    <p class="sub-heading">رياضي - أحمر</p>
+                    <div class="product-price">
+                        <span class="current-price">$450</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col- collection-item product-card" data-item="men" data-aos="zoom-in-up" data-id="9" data-name="Nike Air Jordan" data-price="520" data-image="new arrival/products/pr5.png">
+                <figure><img src="new arrival/products/pr5.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Air Jordan</h3>
+                    <p class="sub-heading">رجالي - أحمر</p>
+                    <div class="product-price">
+                        <span class="current-price">$520</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col- collection-item product-card" data-item="women" data-aos="zoom-in-up" data-id="10" data-name="Nike Renew Run" data-price="310" data-image="new arrival/products/pr6.png">
+                <figure><img src="new arrival/products/pr6.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Renew Run</h3>
+                    <p class="sub-heading">نسائي - بيج</p>
+                    <div class="product-price">
+                        <span class="current-price">$310</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col- collection-item product-card" data-item="sports" data-aos="zoom-in-up" data-id="11" data-name="Nike Superfly 8" data-price="480" data-image="new arrival/products/pr7.png">
+                <figure><img src="new arrival/products/pr7.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-alt"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Superfly 8</h3>
+                    <p class="sub-heading">رياضي - أخضر</p>
+                    <div class="product-price">
+                        <span class="current-price">$480</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col- collection-item product-card" data-item="lifestyle" data-aos="zoom-in-up" data-id="12" data-name="Nike Blazer Mid" data-price="360" data-image="new arrival/products/pr8.png">
+                <figure><img src="new arrival/products/pr8.png" alt="nike shoe"></figure>
+                <div class="col-body">
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <h3 class="heading-three">Nike Blazer Mid</h3>
+                    <p class="sub-heading">كاجوال - أبيض</p>
+                    <div class="product-price">
+                        <span class="current-price">$360</span>
+                    </div>
+                    <div class="col-footer">
+                        <button class="btn add-to-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="quick-view-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم آراء العملاء -->
+    <section class="container testimonial">
+        <div class="clr-one"></div>
+        <div class="section-heading">
+            <div class="heading">
+                <p class="sub-heading">آراء العملاء</p>
+                <h2 class="heading-two">ماذا يقول <span>عملاؤنا</span></h2>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="col testimonial-card" data-aos="zoom-in-up">
+                <div class="testimonial-img">
+                    <img src="new arrival/testimonail/tes-1.png" alt="customer">
+                </div>
+                <div class="testimonial-content">
+                    <i class="fa-solid fa-quote-right quote-icon"></i>
+                    <p class="testi-message">"من أفضل المواقع التي تعاملت معها، الجودة ممتازة والتوصيل سريع جداً. سأطلب مرة أخرى بالتأكيد."</p>
+                    <h3 class="heading-three">أحمد محمد</h3>
+                    <span class="customer-title">عميل مميز</span>
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col testimonial-card" data-aos="zoom-in-up" data-aos-delay="100">
+                <div class="testimonial-img">
+                    <img src="new arrival/testimonail/tes-2.png" alt="customer">
+                </div>
+                <div class="testimonial-content">
+                    <i class="fa-solid fa-quote-right quote-icon"></i>
+                    <p class="testi-message">"الحذاء مريح جداً وأنيق، سعر رائع مقارنة بالجودة. موقع رائع وسهل الاستخدام."</p>
+                    <h3 class="heading-three">سارة أحمد</h3>
+                    <span class="customer-title">عميلة دائمة</span>
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col testimonial-card" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="testimonial-img">
+                    <img src="new arrival/testimonail/tes-3.png" alt="customer">
+                </div>
+                <div class="testimonial-content">
+                    <i class="fa-solid fa-quote-right quote-icon"></i>
+                    <p class="testi-message">"خدمة العملاء ممتازة، ساعدوني في اختيار المقاس المناسب. أحذية أصلية 100%."</p>
+                    <h3 class="heading-three">خالد عبدالله</h3>
+                    <span class="customer-title">عميل جديد</span>
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الاشتراك -->
+    <section class="container subscribe">
+        <div class="wrapper">
+            <div class="subscribe-content" data-aos="flip-up">
+                <h2 class="heading-two">اشترك في النشرة البريدية</h2>
+                <p>احصل على آخر العروض والتخفيضات الحصرية</p>
+                <form id="subscribe-form">
+                    <div class="input-group">
+                        <input type="email" class="email" placeholder="example@gmail.com" required>
+                        <button class="btn subscribe-btn">اشترك</button>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" required>
+                        <span>أوافق على الشروط والأحكام</span>
+                    </label>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="container" id="contact">
+        <div class="wrapper">
+            <div class="col" data-aos="zoom-in">
+                <a href="index.html" class="logo">Bazar</a>
+                <p class="about-website">وجهتك الأولى لأحدث وأجمل الأحذية الرياضية من أشهر الماركات العالمية.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col" data-aos="zoom-in" data-aos-delay="100">
+                <h4>روابط سريعة</h4>
+                <a href="#home">الرئيسية</a>
+                <a href="#about">من نحن</a>
+                <a href="#arrival">وصل حديثاً</a>
+                <a href="#collection">المجموعات</a>
+                <a href="#contact">اتصل بنا</a>
+            </div>
+            <div class="col" data-aos="zoom-in" data-aos-delay="200">
+                <h4>مساعدة ودعم</h4>
+                <a href="#">الأسئلة الشائعة</a>
+                <a href="#">سياسة الشحن</a>
+                <a href="#">سياسة الإرجاع</a>
+                <a href="#">الشروط والأحكام</a>
+                <a href="#">الخصوصية</a>
+            </div>
+            <div class="col" data-aos="zoom-in" data-aos-delay="300">
+                <h4>اتصل بنا</h4>
+                <p><i class="fa-regular fa-envelope"></i> info@bazar.com</p>
+                <p><i class="fa-regular fa-phone"></i> +966 54 123 4567</p>
+                <p><i class="fa-regular fa-location-dot"></i> الرياض، المملكة العربية السعودية</p>
+                <div class="payment-methods">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-cc-paypal"></i>
+                    <i class="fa-brands fa-cc-apple-pay"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="wrapper">
+                <p class="copyright">&copy; 2024 Bazar. جميع الحقوق محفوظة.</p>
+                <div class="footer-links">
+                    <a href="#">خريطة الموقع</a>
+                    <a href="#">الأحكام</a>
+                    <a href="#">الخصوصية</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="Store.js"></script>
+</body>
+</html>
